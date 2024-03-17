@@ -68,7 +68,7 @@ namespace Game_Of_War
 
                 ProcessWar(pool);
 
-                DetermineRoundWinner(pool);
+                DetermineRoundWinner(pool); //add player deck
 
 
                 Console.WriteLine("================================================================================");
@@ -81,7 +81,7 @@ namespace Game_Of_War
 
             List<Card> GenerateDeck()
             {
-                List<Card> deck = new List<Card>();
+                List<Card> deck2 = new List<Card>();
                 CardFace[] faces = (CardFace[])Enum.GetValues(typeof(CardFace));
                 CardSuit[] suits = (CardSuit[])Enum.GetValues(typeof(CardSuit));
                 
@@ -93,7 +93,7 @@ namespace Game_Of_War
                         CardFace currentFace = faces[face];
                         CardSuit currentSuit = suits[suite];
 
-                        deck.Add(new Card
+                        deck2.Add(new Card
                         {
                             Face = currentFace,
                             Suite = currentSuit
@@ -104,29 +104,29 @@ namespace Game_Of_War
             }
 
 
-            void ShuffleDeck(List<Card> deck)
+            void ShuffleDeck(List<Card> deck2)
             {
                 Random random = new Random();
 
-                for (int i = 0; i < deck.Count; i++)
+                for (int i = 0; i < deck2.Count; i++)
                 {
-                    int firstCardIndex = random.Next(deck.Count);
+                    int firstCardIndex = random.Next(deck2.Count);
 
-                    Card tempCard = deck[firstCardIndex];
-                    deck[firstCardIndex] = deck[i];
-                    deck[i] = tempCard;
+                    Card tempCard = deck2[firstCardIndex];
+                    deck2[firstCardIndex] = deck2[i];
+                    deck2[i] = tempCard;
                 }
             }
 
-            void DealCardsToPlayers(List<Card> deck)
+            void DealCardsToPlayers(List<Card> deck2)
             {
 
 
 
-                while (deck.Count > 0)
+                while (deck2.Count > 0)
                 {
-                    Card[] firstTwoDrawnCards = deck.Take(2).ToArray();
-                    deck.RemoveRange(0, 2);
+                    Card[] firstTwoDrawnCards = deck2.Take(2).ToArray();
+                    deck2.RemoveRange(0, 2);
 
                     firstPlayerDeck.Enqueue(firstTwoDrawnCards[0]);
                     firstPlayerDeck.Enqueue(firstTwoDrawnCards[1]);
